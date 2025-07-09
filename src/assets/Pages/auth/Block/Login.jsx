@@ -43,16 +43,10 @@ function Login() {
               Forgot Password?
             </a>
           </div>
-          {/* Button Sign In */}
-          {/* <Button variant="primary" className='flex mx-auto mb-[-60px]'>
-          <div className="text-primary w-[55px] h-[55px] rounded-full bg-white flex justify-center items-center">
-            <FaArrowRight size={20}/>
-          </div>
-          <span className='leading-[55px] pl-7 pr-13'>Sign In</span>
-          </Button> */}
         </div>
+          {/* Button Sign In */}
           <div className="flex items-center justify-center mt-[-30px] relative z-99">
-            <Button children="Sign In" type="submit" variant="primary"></Button>
+            <Button children="Sign In" type="submit" variant="primary" isShowIcon={true}></Button>
           </div>
       </form>
             <div className="text-center mb-2">

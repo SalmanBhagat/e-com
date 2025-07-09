@@ -7,8 +7,9 @@ const Button = ({
   children,
   variant = "primary",
   type = "button",
+  isShowIcon = true,
 }) => {
-  const baseStyle = "p-[2px] rounded-[60px] transition duration-200 cursor-pointer";
+  const baseStyle = "p-[2px] rounded-[60px] cursor-pointer transition-all duration-300 hover:bg-[#c56454] hover:scale-105 ";
 
   const variants = {
     primary: "bg-primary text-white",
@@ -17,9 +18,11 @@ const Button = ({
 
   return (
     <button type={type} className={baseStyle + " " + variants[variant] + " flex justify-center items-center"}>
+      {isShowIcon && 
       <span className="w-[52px] h-[52px] bg-white text-primary rounded-full flex justify-center items-center">
         <FaArrowRight size={18}/>
-        </span>
+      </span>
+      }
       <span className="pl-[39px] pr-[73px] text-[18px]">{children}</span>
       </button>
   );

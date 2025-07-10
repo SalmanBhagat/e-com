@@ -67,7 +67,7 @@ function Login() {
           </div>
       </form>
             <div className="text-center mb-2">
-              <span>Not a member?</span> <Link to={"auth/register"} className="font-medium underline">Create an account</Link>
+              <span>Not a member?</span> <Link to={"/register"} className="font-medium underline">Create an account</Link>
             </div>
     </div>
   );

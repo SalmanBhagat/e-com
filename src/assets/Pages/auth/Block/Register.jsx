@@ -100,7 +100,7 @@ function Register() {
           </div>
       </form>
             <div className="text-center mb-2">
-              <Link to={"auth/login"}>Already have and account?___</Link>
+              <Link to={"/login"}>Already have and account?___</Link>
             </div>
     </div>
   )

@@ -1,8 +1,19 @@
-import { FaArrowRight } from "react-icons/fa";
 import Button from "../../../Components/Buttons/Button";
 import { Link } from "react-router-dom";
+import { schema } from "../../../core/schema/Login.schema";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const loginSchema = schema;
 
 function Login() {
+
+  const {register, handleSubmit, formState: {errors}} = useForm({resolver: zodResolver(loginSchema)})
+
+  const onsubmit = (data) => {
+    console.log(data);
+  }
+
   return (
     <div className="bg-secondary">
       {/* Top Bar Title */}
@@ -12,7 +23,7 @@ function Login() {
         </h2>
       </div>
       {/* Form */}
-      <form className="mb-6">
+      <form className="mb-6" onSubmit={handleSubmit(onsubmit)}>
         <div className="max-w-[335px] mx-auto mt-[-60px] bg-white p-[30px] rounded-[40px] shadow-[0px_20px_40px_0px_#E68B8A0F] backdrop-blur-[25px]">
           <h4 className="text-[20px] mb-[14px] leading-[145%]">
             Access Your Account and Explore More
@@ -23,9 +34,18 @@ function Login() {
               Email Address<span className="text-danger">*</span>
             </label>
             <input
+              {...register("email")}
               type="email"
-              className="border border-gray rounded-[5px] p-3 h-[48px] focus:outline-none"
+              className="border border-gray rounded-[10px] p-3 h-[48px] focus:outline-none"
             />
+            {/* Validation Error Tag Show*/}
+            {
+              errors.email && (
+                <p className='text-red-600 mt-2 text-[14px]'>
+                  {errors.email.message}
+                </p>
+              )
+            }
           </div>
           {/* Form Group */}
           <div className="mb-[15px] flex flex-col">
@@ -33,9 +53,18 @@ function Login() {
               Password<span className="text-danger">*</span>
             </label>
             <input
+            {...register("password")}
               type="password"
-              className="border border-gray rounded-[5px] p-3 h-[48px] focus:outline-none"
+              className="border border-gray rounded-[10px] p-3 h-[48px] focus:outline-none"
             />
+            {/* Validation Error Tag Show*/}
+            {
+              errors.password && (
+                <p className='text-red-600 mt-2 text-[14px]'>
+                  {errors.password.message}
+                </p>
+              )
+            }
           </div>
           {/* Forgot Btn */}
           <div className="mb-[28px]">
@@ -50,7 +79,7 @@ function Login() {
           </div>
       </form>
             <div className="text-center mb-2">
-              <span>Not a member?</span> <Link className="font-medium underline">Create an account</Link>
+              <span>Not a member?</span> <Link to={"/register"} className="font-medium underline">Create an account</Link>
             </div>
     </div>
   );

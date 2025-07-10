@@ -2,13 +2,13 @@ import Button from '../../../Components/Buttons/Button'
 import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { schema } from '../../../core/schema/Register.schema';
+import { registerSchema } from '../../../core/schema/Register.schema';
 
-const registerSchema = schema;
+const schema = registerSchema;
 
 function Register() {
 
-  const {register, handleSubmit, formState: {errors}} = useForm({resolver: zodResolver(registerSchema)});
+  const {register, handleSubmit, formState: {errors}} = useForm({resolver: zodResolver(schema)});
 
   const onsubmit = (data) => {
     console.log(data);
@@ -39,13 +39,7 @@ function Register() {
               className="border border-gray rounded-[10px] p-3 h-[48px] focus:outline-none"
             />
             {/* Validation Error Tag Show*/}
-            {
-              errors.name && (
-                <p className='text-red-600 mt-2 text-[14px]'>
-                  {errors.name.message}
-                </p>
-              )
-            }
+            <span className='text-red-600 mt-2 text-sm'>{errors.name ? errors.name.message : ""}</span>
           </div>
           <div className="mb-[17px] flex flex-col">
             <label className="text-[15px]">
@@ -57,13 +51,7 @@ function Register() {
               className="border border-gray rounded-[10px] p-3 h-[48px] focus:outline-none"
             />
             {/* Validation Error Tag Show*/}
-            {
-              errors.email && (
-                <p className='text-red-600 mt-2 text-[14px]'>
-                  {errors.email.message}
-                </p>
-              )
-            }
+            <span className='text-red-600 mt-2 text-sm'>{errors.email ? errors.email.message : ""}</span>
           </div>
           <div className="mb-[17px] flex flex-col">
             <label className="text-[15px]">
@@ -82,13 +70,7 @@ function Register() {
             />
             </div>
               {/* Validation Error Tag Show*/}
-            {
-              errors.phone && (
-                <p className='text-red-600 mt-2 text-[14px]'>
-                  {errors.phone.message}
-                </p>
-              )
-            }
+           <span className='text-red-600 mt-2 text-sm'>{errors.country_code || errors.phone ? errors.phone.message : ""}</span>
           </div>
           {/* Form Group */}
           <div className="mb-[15px] flex flex-col">
@@ -101,27 +83,15 @@ function Register() {
               className="border border-gray rounded-[10px] p-3 h-[48px] focus:outline-none"
             />
             {/* Validation Error Tag Show*/}
-            {
-              errors.password && (
-                <p className='text-red-600 mt-2 text-[14px]'>
-                  {errors.password.message}
-                </p>
-              )
-            }
+           <span className='text-red-600 mt-2 text-sm'>{errors.password ? errors.password.message : ""}</span>
           </div>
           <div className="mb-[28px]">
             <div className="flex items-center gap-2">
-            <input type="checkbox" className='w-[20px] h-[20px]' {...register("checkbox")}/>
+            <input type="checkbox" className='w-[20px] h-[20px]' {...register("acceptTerms")}/>
             <label className='text-[15px]'>I agree to all Term, Privacy and Fees</label>
             </div>
             {/* Validation Error Tag Show*/}
-            {
-              errors.checkbox && (
-                <p className='text-red-600 mt-2 text-[14px]'>
-                  {errors.checkbox.message}
-                </p>
-              )
-            }
+            <span className='text-red-600 mt-2 text-sm'>{errors.acceptTerms ? errors.acceptTerms.message : ""}</span>
           </div>
         </div>
           {/* Button Sign In */}
@@ -130,7 +100,7 @@ function Register() {
           </div>
       </form>
             <div className="text-center mb-2">
-              <Link to={"/login"}>Already have and account?___</Link>
+              <Link to={"auth/login"}>Already have and account?___</Link>
             </div>
     </div>
   )

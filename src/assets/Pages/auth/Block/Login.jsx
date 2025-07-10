@@ -1,14 +1,14 @@
 import Button from "../../../Components/Buttons/Button";
 import { Link } from "react-router-dom";
-import { schema } from "../../../core/schema/Login.schema";
+import { loginSchema } from "../../../core/schema/Login.schema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-const loginSchema = schema;
+const schema = loginSchema;
 
 function Login() {
 
-  const {register, handleSubmit, formState: {errors}} = useForm({resolver: zodResolver(loginSchema)})
+  const {register, handleSubmit, formState: {errors}} = useForm({resolver: zodResolver(schema)})
 
   const onsubmit = (data) => {
     console.log(data);
@@ -39,13 +39,7 @@ function Login() {
               className="border border-gray rounded-[10px] p-3 h-[48px] focus:outline-none"
             />
             {/* Validation Error Tag Show*/}
-            {
-              errors.email && (
-                <p className='text-red-600 mt-2 text-[14px]'>
-                  {errors.email.message}
-                </p>
-              )
-            }
+           <span className='text-red-600 mt-2 text-sm'>{errors.email ? errors.email.message : ""}</span>
           </div>
           {/* Form Group */}
           <div className="mb-[15px] flex flex-col">
@@ -58,13 +52,7 @@ function Login() {
               className="border border-gray rounded-[10px] p-3 h-[48px] focus:outline-none"
             />
             {/* Validation Error Tag Show*/}
-            {
-              errors.password && (
-                <p className='text-red-600 mt-2 text-[14px]'>
-                  {errors.password.message}
-                </p>
-              )
-            }
+            <span className='text-red-600 mt-2 text-sm'>{errors.password ? errors.password.message : ""}</span>
           </div>
           {/* Forgot Btn */}
           <div className="mb-[28px]">
@@ -79,7 +67,7 @@ function Login() {
           </div>
       </form>
             <div className="text-center mb-2">
-              <span>Not a member?</span> <Link to={"/register"} className="font-medium underline">Create an account</Link>
+              <span>Not a member?</span> <Link to={"auth/register"} className="font-medium underline">Create an account</Link>
             </div>
     </div>
   );

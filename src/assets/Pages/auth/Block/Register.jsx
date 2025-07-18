@@ -1,18 +1,45 @@
-import Button from '../../../Components/Buttons/Button'
-import { Link } from 'react-router-dom'
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { registerSchema } from '../../../core/schema/Register.schema';
+import Button from "../../../Components/Buttons/Button";
+import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { registerSchema } from "../../../core/schema/Register.schema";
+import axios from "axios";
 
 const schema = registerSchema;
 
 function Register() {
-
-  const {register, handleSubmit, formState: {errors}} = useForm({resolver: zodResolver(schema)});
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ resolver: zodResolver(schema) });
 
   const onsubmit = (data) => {
     console.log(data);
-  } 
+
+    // Api Data Save
+    const bodyData = {
+      user_agent: "EI-AAPP",
+      name: data.name,
+      email: data.email,
+      mobile: data.country_code + "-" + data.phone,
+      password: data.password,
+    };
+
+    console.log(bodyData);
+
+    axios
+      .post(
+        "https://emaadinfotech-demos.in/ecommerce-api/user_api/register",
+        bodyData
+      )
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <div className="bg-secondary">
@@ -31,46 +58,55 @@ function Register() {
           {/* Form Group */}
           <div className="mb-[17px] flex flex-col">
             <label className="text-[15px]">
-             Name<span className="text-danger">*</span>
+              Name<span className="text-danger">*</span>
             </label>
             <input
-            {...register("name")}
+              {...register("name")}
               type="text"
               className="border border-gray rounded-[10px] p-3 h-[48px] focus:outline-none"
             />
             {/* Validation Error Tag Show*/}
-            <span className='text-red-600 mt-2 text-sm'>{errors.name ? errors.name.message : ""}</span>
+            <span className="text-red-600 mt-2 text-sm">
+              {errors.name ? errors.name.message : ""}
+            </span>
           </div>
           <div className="mb-[17px] flex flex-col">
             <label className="text-[15px]">
               Email Address<span className="text-danger">*</span>
             </label>
             <input
-            {...register("email")}
+              {...register("email")}
               type="email"
               className="border border-gray rounded-[10px] p-3 h-[48px] focus:outline-none"
             />
             {/* Validation Error Tag Show*/}
-            <span className='text-red-600 mt-2 text-sm'>{errors.email ? errors.email.message : ""}</span>
+            <span className="text-red-600 mt-2 text-sm">
+              {errors.email ? errors.email.message : ""}
+            </span>
           </div>
           <div className="mb-[17px] flex flex-col">
             <label className="text-[15px]">
               Mobile Number<span className="text-danger">*</span>
             </label>
             <div className="flex gap-3">
-              <select {...register("country_code")} className='border border-gray rounded-[10px] p-3 h-[48px] focus:outline-none'>
-              <option value="91">+91</option>
-              <option value="92">+92</option>
-              <option value="93">+93</option>
-            </select>
-            <input
-            {...register("phone")}
-              type="number"
-              className="w-full border border-gray rounded-[10px] p-3 h-[48px] focus:outline-none"
-            />
+              <select
+                {...register("country_code")}
+                className="border border-gray rounded-[10px] p-3 h-[48px] focus:outline-none"
+              >
+                <option value="91">+91</option>
+                <option value="92">+92</option>
+                <option value="93">+93</option>
+              </select>
+              <input
+                {...register("phone")}
+                type="number"
+                className="w-full border border-gray rounded-[10px] p-3 h-[48px] focus:outline-none"
+              />
             </div>
-              {/* Validation Error Tag Show*/}
-           <span className='text-red-600 mt-2 text-sm'>{errors.country_code || errors.phone ? errors.phone.message : ""}</span>
+            {/* Validation Error Tag Show*/}
+            <span className="text-red-600 mt-2 text-sm">
+              {errors.country_code || errors.phone ? errors.phone.message : ""}
+            </span>
           </div>
           {/* Form Group */}
           <div className="mb-[15px] flex flex-col">
@@ -78,32 +114,47 @@ function Register() {
               Password<span className="text-danger">*</span>
             </label>
             <input
-            {...register("password")}
+              {...register("password")}
               type="password"
               className="border border-gray rounded-[10px] p-3 h-[48px] focus:outline-none"
             />
             {/* Validation Error Tag Show*/}
-           <span className='text-red-600 mt-2 text-sm'>{errors.password ? errors.password.message : ""}</span>
+            <span className="text-red-600 mt-2 text-sm">
+              {errors.password ? errors.password.message : ""}
+            </span>
           </div>
           <div className="mb-[28px]">
             <div className="flex items-center gap-2">
-            <input type="checkbox" className='w-[20px] h-[20px]' {...register("acceptTerms")}/>
-            <label className='text-[15px]'>I agree to all Term, Privacy and Fees</label>
+              <input
+                type="checkbox"
+                className="w-[20px] h-[20px]"
+                {...register("acceptTerms")}
+              />
+              <label className="text-[15px]">
+                I agree to all Term, Privacy and Fees
+              </label>
             </div>
             {/* Validation Error Tag Show*/}
-            <span className='text-red-600 mt-2 text-sm'>{errors.acceptTerms ? errors.acceptTerms.message : ""}</span>
+            <span className="text-red-600 mt-2 text-sm">
+              {errors.acceptTerms ? errors.acceptTerms.message : ""}
+            </span>
           </div>
         </div>
-          {/* Button Sign In */}
-          <div className="flex items-center justify-center mt-[-30px] relative z-99">
-            <Button children="Sign Up" type="submit" variant="primary" isShowIcon={true}></Button>
-          </div>
+        {/* Button Sign In */}
+        <div className="flex items-center justify-center mt-[-30px] relative z-99">
+          <Button
+            children="Sign Up"
+            type="submit"
+            variant="primary"
+            isShowIcon={true}
+          ></Button>
+        </div>
       </form>
-            <div className="text-center mb-2">
-              <Link to={"/login"}>Already have and account?___</Link>
-            </div>
+      <div className="text-center mb-2">
+        <Link to={"/auth/login"}>Already have and account?___</Link>
+      </div>
     </div>
-  )
+  );
 }
 
-export {Register}
+export { Register };

@@ -23,15 +23,15 @@ function ProductCard() {
         key={index}
         className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300"
       >
+
+        {/* Content */}
+        <div className="p-5 space-y-3">
         {/* Image */}
         <img
           src={item.images[0]}
           alt={item.title}
           className="w-full h-52 object-cover"
         />
-
-        {/* Content */}
-        <div className="p-5 space-y-3">
           {/* Title + Brand */}
           <div>
             <h2 className="text-lg font-semibold text-gray-800">
